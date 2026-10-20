@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Voltlog</title>
-<meta name="description" content="Voltlog: trips, charging and costs of an electric car in one place, on the web and on the iPhone.">
+<meta name="description" content="Voltlog: trips, charging and costs of an electric car in one place, on the web and on the iPhone. Supports Porsche Connect and Zaptec today.">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -195,6 +195,7 @@
   .how { border-top: 1px solid var(--line); padding-block: 100px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px; }
   .how > div { display: grid; gap: 16px; align-content: start; min-width: 0; }
   .how h2 { font-size: 26px; }
+  .how .note { font-size: 14px; color: var(--muted); }
   .how dl { margin: 0; display: grid; border-top: 1px solid var(--line); }
   .how dl div { padding: 12px 0; border-bottom: 1px solid var(--line); display: grid; gap: 2px; }
   .how dt { font-size: 15px; }
@@ -230,7 +231,7 @@
     <section class="hero">
       <p class="eyebrow">Logbook for an electric car</p>
       <h1>Every kilometre, every kilowatt-hour, every franc.</h1>
-      <p class="lede">Voltlog collects the trips and charges of a <strong>Porsche Macan Electric</strong> from the car, the home wallbox and the charging invoices, and shows what driving electric really uses and costs. On the web and on the iPhone.</p>
+      <p class="lede">Voltlog collects the trips and charges of <strong>your electric car</strong> from the car's connected service, the home wallbox and the charging invoices, and shows what driving electric really uses and costs. On the web and on the iPhone.</p>
     </section>
 
     <div class="stage">
@@ -250,7 +251,7 @@
       <div class="figure"><span class="value">6.9<small>%</small></span><span class="label">Charging loss</span></div>
       <div class="figure"><span class="value">1'688<small>CHF</small></span><span class="label">Saved vs. petrol</span></div>
     </div>
-    <p class="figures-note">One year of the demo data shown on this page: 810 trips and 104 charges, made up for these screenshots.</p>
+    <p class="figures-note">One year of the demo data shown on this page, with a Macan 4S as the example car: 810 trips and 104 charges, made up for these screenshots.</p>
 
     <div class="features" id="features">
 
@@ -278,9 +279,9 @@
         <div class="copy">
           <p class="eyebrow">Charging</p>
           <h2>All charging in one list</h2>
-          <p>Home charging comes from the Zaptec wallbox, public charging from the invoices and receipts of the charging provider, and the car adds what reached the battery. When two sources saw the same charge, Voltlog shows it once and measures the loss between the grid and the battery.</p>
+          <p>Home charging comes from the wallbox, public charging from the invoices and receipts of the charging provider, and the car adds what reached the battery. When two sources saw the same charge, Voltlog shows it once and measures the loss between the grid and the battery.</p>
           <ul class="points">
-            <li>Import invoices and receipts as PDF (Porsche Charging Service, Migros)</li>
+            <li>Import charging invoices and receipts as PDF</li>
             <li>Prices with the day they apply from: a new tariff leaves the past as it was</li>
             <li>Charging loss for AC and DC, measured on your own charges</li>
             <li>Estimates for charges the car did not report, clearly marked</li>
@@ -402,7 +403,7 @@
       <header>
         <p class="eyebrow">iPhone</p>
         <h2>Everything, also in your pocket</h2>
-        <p>A native SwiftUI app for iOS 26 with the same features as the web app: sync, trips, charging, insights, reports, tires, locations and settings. Share a PDF invoice from Mail or a trip export from the Porsche app straight to Voltlog.</p>
+        <p>A native SwiftUI app for iOS 26 with the same features as the web app: sync, trips, charging, insights, reports, tires, locations and settings. Share a charging invoice from Mail or a trip export from the car's app straight to Voltlog.</p>
       </header>
       <div class="phones" tabindex="0" aria-label="Screenshots of the iPhone app">
         <ul>
@@ -422,13 +423,14 @@
     <section class="how" id="how">
       <div>
         <p class="eyebrow">Data sources</p>
-        <h2>Where the numbers come from</h2>
+        <h2>Supported today</h2>
+        <p class="note">Voltlog keeps cars, trips and charges in its own vendor-neutral format; these are the services it reads them from so far.</p>
         <dl>
-          <div><dt>Porsche Connect</dt><dd>Vehicle status, trips and the car's charging history</dd></div>
-          <div><dt>Zaptec</dt><dd>Charging sessions of the home wallbox</dd></div>
-          <div><dt>Invoices and receipts</dt><dd>PDF imports with what public charging cost</dd></div>
+          <div><dt>Car: Porsche Connect</dt><dd>Vehicle status, trips and the car's charging history, e.g. of a Macan or Taycan Electric</dd></div>
+          <div><dt>Wallbox: Zaptec</dt><dd>Charging sessions of the home wallbox</dd></div>
+          <div><dt>Invoices and receipts</dt><dd>PDFs of Porsche Charging Service and Migros M-Charge, with what public charging cost</dd></div>
           <div><dt>Trip export</dt><dd>CSV from My Porsche, for trips older than twelve months</dd></div>
-          <div><dt>Open-Meteo</dt><dd>Hourly weather at your locations</dd></div>
+          <div><dt>Weather and exchange rates</dt><dd>Open-Meteo for the weather at your locations, the ECB rates via Frankfurter</dd></div>
         </dl>
       </div>
       <div>
