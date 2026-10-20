@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Voltlog</title>
+<meta name="description" content="Voltlog: trips, charging and costs of an electric car in one place, on the web and on the iPhone.">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&family=Geist+Mono:wght@400&display=swap">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<style>
+  /* Layout: a calm, wide column like the app itself; text beside screenshots, alternating, one accent. */
+  :root {
+    color-scheme: dark;
+    --bg: #0a0a0b;
+    --surface: #141416;
+    --fg: #f2f3f3;
+    --muted: #9a9fa2;
+    --line: #26282a;
+    --accent: #00a7af;
+    --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      color-scheme: light;
+      --bg: #fafafa; --surface: #ffffff; --fg: #111213; --muted: #62676b; --line: #e3e5e6; --accent: #00959c;
+    }
+  }
+  :root[data-theme="light"] {
+    color-scheme: light;
+    --bg: #fafafa; --surface: #ffffff; --fg: #111213; --muted: #62676b; --line: #e3e5e6; --accent: #00959c;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font: 400 16px/1.6 var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; height: auto; display: block; }
+  a { color: inherit; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding-left: max(24px, env(safe-area-inset-left, 0px));
+    padding-right: max(24px, env(safe-area-inset-right, 0px));
+  }
+  .eyebrow {
+    margin: 0;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  h1, h2, h3 { font-weight: 300; letter-spacing: -0.02em; text-wrap: balance; margin: 0; }
+  p { margin: 0; }
+
+  /* Top bar */
+  .top {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 5;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 60px; }
+  .wordmark { font-size: 14px; font-weight: 500; letter-spacing: 0.42em; text-decoration: none; }
+  .top nav { display: flex; gap: 28px; font-size: 14px; }
+  .top nav a { color: var(--muted); text-decoration: none; }
+  .top nav a:hover { color: var(--fg); }
+  @media (max-width: 640px) { .top nav { display: none; } }
+
+  /* Hero */
+  .hero { padding-block: 88px 40px; display: grid; gap: 28px; }
+  .hero h1 { font-size: clamp(40px, 6.4vw, 76px); line-height: 1.02; max-width: 17ch; }
+  .hero .lede { font-size: clamp(17px, 1.6vw, 20px); color: var(--muted); max-width: 60ch; }
+  .hero .lede strong { color: var(--fg); font-weight: 400; }
+
+  .stage { position: relative; padding-bottom: 72px; }
+  .browser {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--surface);
+    box-shadow: 0 30px 80px -40px rgb(0 0 0 / 0.6);
+  }
+  .browser .bar { height: 30px; border-bottom: 1px solid var(--line); display: flex; align-items: center; padding-left: 14px; }
+  .browser .bar span { font: 400 11px var(--font-mono); color: var(--muted); }
+  .phone {
+    border-radius: 34px;
+    border: 6px solid #1d1e20;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 30px 70px -30px rgb(0 0 0 / 0.7);
+  }
+  .stage .phone { position: absolute; right: 4%; bottom: 0; width: min(25%, 250px); }
+  @media (max-width: 640px) { .stage { padding-bottom: 0; } .stage .phone { display: none; } }
+
+  /* The demo year in numbers */
+  .figures {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    border-block: 1px solid var(--line);
+    margin-block: 56px 0;
+  }
+  .figure { padding: 28px 20px 28px 0; display: grid; gap: 6px; }
+  .figure + .figure { padding-left: 20px; border-left: 1px solid var(--line); }
+  .figure .value { font-size: clamp(28px, 3.4vw, 40px); font-weight: 300; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  .figure .value small { font-size: 0.42em; color: var(--muted); font-weight: 400; letter-spacing: 0; margin-left: 4px; }
+  .figure .label { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+  .figures-note { margin-top: 14px; font-size: 13px; color: var(--muted); }
+  @media (max-width: 900px) {
+    .figures { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .figure, .figure + .figure { padding: 22px 0; border-left: 0; border-bottom: 1px solid var(--line); }
+    .figure:nth-child(even) { padding-left: 20px; border-left: 1px solid var(--line); }
+    .figure:last-child { grid-column: 1 / -1; border-bottom: 0; }
+  }
+
+  /* Features: text beside a screenshot, alternating sides */
+  .features { display: grid; gap: 120px; padding-block: 120px; }
+  .feature { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; align-items: center; }
+  .feature:nth-child(even) .copy { order: 2; }
+  .feature .copy { display: grid; gap: 18px; min-width: 0; }
+  .feature h2 { font-size: clamp(28px, 3vw, 38px); line-height: 1.15; }
+  .feature .copy > p { color: var(--muted); max-width: 52ch; }
+  .points { list-style: none; margin: 4px 0 0; padding: 0; display: grid; border-top: 1px solid var(--line); }
+  .points li { padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 15px; display: grid; grid-template-columns: 16px 1fr; gap: 12px; }
+  .points li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); margin-top: 9px; }
+  .feature .shot { min-width: 0; }
+  .feature .shot.pair { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 1.25fr); gap: 20px; align-items: end; }
+  @media (max-width: 860px) {
+    .features { gap: 88px; padding-block: 80px; }
+    .feature { grid-template-columns: 1fr; gap: 28px; }
+    .feature:nth-child(even) .copy { order: 0; }
+  }
+
+  /* iPhone */
+  .iphone { border-top: 1px solid var(--line); padding-block: 100px; display: grid; gap: 40px; }
+  .iphone header { display: grid; gap: 16px; max-width: 62ch; }
+  .iphone h2 { font-size: clamp(30px, 3.6vw, 44px); }
+  .iphone header p:last-child { color: var(--muted); }
+  .phones { overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px; }
+  .phones ul { list-style: none; margin: 0; padding: 0; display: grid; grid-auto-flow: column; grid-auto-columns: 220px; gap: 22px; }
+  .phones li { scroll-snap-align: start; display: grid; gap: 12px; }
+  .phones .caption { font-size: 13px; color: var(--muted); }
+
+  /* How it works */
+  .how { border-top: 1px solid var(--line); padding-block: 100px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px; }
+  .how > div { display: grid; gap: 16px; align-content: start; min-width: 0; }
+  .how h2 { font-size: 26px; }
+  .how dl { margin: 0; display: grid; border-top: 1px solid var(--line); }
+  .how dl div { padding: 12px 0; border-bottom: 1px solid var(--line); display: grid; gap: 2px; }
+  .how dt { font-size: 15px; }
+  .how dd { margin: 0; font-size: 14px; color: var(--muted); }
+  @media (max-width: 900px) { .how { grid-template-columns: 1fr; gap: 56px; padding-block: 72px; } }
+
+  footer { border-top: 1px solid var(--line); padding-block: 36px 48px; font-size: 13px; color: var(--muted); }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; }
+  footer p { max-width: 70ch; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="wordmark" href="#">VOLTLOG</a>
+    <nav aria-label="Sections">
+      <a href="#features">Features</a>
+      <a href="#iphone">iPhone</a>
+      <a href="#how">How it works</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <section class="hero">
+      <p class="eyebrow">Logbook for an electric car</p>
+      <h1>Every kilometre, every kilowatt-hour, every franc.</h1>
+      <p class="lede">Voltlog collects the trips and charges of a <strong>Porsche Macan Electric</strong> from the car, the home wallbox and the charging invoices, and shows what driving electric really uses and costs. On the web and on the iPhone.</p>
+    </section>
+
+    <div class="stage">
+      <div class="browser">
+        <div class="bar"><span>voltlog</span></div>
+        <picture>
+          <source srcset="assets/web-dashboard-light.webp" media="(prefers-color-scheme: light)">
+          <img src="assets/web-dashboard-dark.webp" width="1600" height="1000" alt="The Voltlog dashboard: battery level, range, mileage and the last charge">
+        </picture>
+      </div>
+      <div class="phone">
+        <img src="assets/ios-1-dashboard.webp" width="603" height="1311" alt="The dashboard in the iPhone app">
+      </div>
+    </div>
+
+    <div class="figures" aria-label="The demo year in figures">
+      <div class="figure"><span class="value">17'104<small>km</small></span><span class="label">Driven</span></div>
+      <div class="figure"><span class="value">21.1<small>kWh/100 km</small></span><span class="label">Avg. consumption</span></div>
+      <div class="figure"><span class="value">7.28<small>Rp./km</small></span><span class="label">Cost per km</span></div>
+      <div class="figure"><span class="value">6.9<small>%</small></span><span class="label">Charging loss</span></div>
+      <div class="figure"><span class="value">1'688<small>CHF</small></span><span class="label">Saved vs. petrol</span></div>
+    </div>
+    <p class="figures-note">One year of the demo data shown on this page: 810 trips and 104 charges, made up for these screenshots.</p>
+
+    <div class="features" id="features">
+
+      <section class="feature">
+        <div class="copy">
+          <p class="eyebrow">Trips</p>
+          <h2>Each trip with its cost and its weather</h2>
+          <p>Every trip from the car, priced at what the energy in the battery cost when it was driven: the charges feed a running average, so a trip after a cheap home charge costs less than one after a fast charger on the motorway.</p>
+          <ul class="points">
+            <li>Distance, energy, consumption, driving time and average speed</li>
+            <li>Electricity cost, cost per km and what a petrol car would have cost</li>
+            <li>The weather where it started, from home or a saved location</li>
+            <li>Edit any value, add a note; edits survive the next sync</li>
+          </ul>
+        </div>
+        <div class="shot">
+          <div class="browser">
+            <div class="bar"><span>voltlog / trips</span></div>
+            <picture>
+              <source srcset="assets/web-trip-light.webp" media="(prefers-color-scheme: light)">
+              <img src="assets/web-trip-dark.webp" width="1600" height="1000" loading="lazy" alt="A trip's overview with costs, start place and weather">
+            </picture>
+          </div>
+        </div>
+      </section>
+
+      <section class="feature">
+        <div class="copy">
+          <p class="eyebrow">Charging</p>
+          <h2>All charging in one list</h2>
+          <p>Home charging comes from the Zaptec wallbox, public charging from the invoices and receipts of the charging provider, and the car adds what reached the battery. When two sources saw the same charge, Voltlog shows it once and measures the loss between the grid and the battery.</p>
+          <ul class="points">
+            <li>Import invoices and receipts as PDF (Porsche Charging Service, Migros)</li>
+            <li>Prices with the day they apply from: a new tariff leaves the past as it was</li>
+            <li>Charging loss for AC and DC, measured on your own charges</li>
+            <li>Estimates for charges the car did not report, clearly marked</li>
+          </ul>
+        </div>
+        <div class="shot">
+          <div class="browser">
+            <div class="bar"><span>voltlog / charging</span></div>
+            <picture>
+              <source srcset="assets/web-charging-light.webp" media="(prefers-color-scheme: light)">
+              <img src="assets/web-charging-dark.webp" width="1600" height="1000" loading="lazy" alt="The charging page with the month's summary and the list of charges">
+            </picture>
+          </div>
+        </div>
+      </section>
+
+      <section class="feature">
+        <div class="copy">
+          <p class="eyebrow">Insights</p>
+          <h2>What really drives consumption</h2>
+          <p>Charts over the last twelve months or all data: when and how far you drive, consumption by speed, trip length and outside temperature, energy and cost per month, battery levels when charging, and the peak power at each DC charge.</p>
+          <ul class="points">
+            <li>Records: the cheapest, longest, fastest and most efficient trips</li>
+            <li>Summer vs. winter tires, per set</li>
+            <li>Values above the columns, or hidden with one switch</li>
+          </ul>
+        </div>
+        <div class="shot">
+          <div class="browser">
+            <div class="bar"><span>voltlog / insights</span></div>
+            <picture>
+              <source srcset="assets/web-insights-temperature-light.webp" media="(prefers-color-scheme: light)">
+              <img src="assets/web-insights-temperature-dark.webp" width="1600" height="1000" loading="lazy" alt="Insights: consumption by speed, trip length and outside temperature">
+            </picture>
+          </div>
+        </div>
+      </section>
+
+      <section class="feature">
+        <div class="copy">
+          <p class="eyebrow">Reports</p>
+          <h2>A month or a year at a glance</h2>
+          <p>The monthly and the yearly report compare a period with the one before, from consumption to the savings against a petrol car, and share as an image that fits a phone screen.</p>
+          <ul class="points">
+            <li>Consumption per month, driving, costs and charging</li>
+            <li>The share charged at home and the longest trip of the year</li>
+          </ul>
+        </div>
+        <div class="shot pair">
+          <div class="browser">
+            <div class="bar"><span>voltlog / yearly report</span></div>
+            <picture>
+              <source srcset="assets/web-yearly-light.webp" media="(prefers-color-scheme: light)">
+              <img src="assets/web-yearly-dark.webp" width="1600" height="1000" loading="lazy" alt="The yearly report dialog">
+            </picture>
+          </div>
+          <div class="phone">
+            <img src="assets/ios-1j-yearly-report.webp" width="603" height="1311" loading="lazy" alt="The yearly report on the iPhone">
+          </div>
+        </div>
+      </section>
+
+      <section class="feature">
+        <div class="copy">
+          <p class="eyebrow">Tires and locations</p>
+          <h2>Which tires, and where trips started</h2>
+          <p>Log your tire swaps and see the mileage and consumption of each set next to the pressures the car reports. Name the places you drive from, like home or a holiday flat, and each trip gets the weather of where it started.</p>
+          <ul class="points">
+            <li>Summer and winter sets with their sizes and history</li>
+            <li>Locations with a short name, one of them home</li>
+            <li>Distance and consumption per tire set and per location</li>
+          </ul>
+        </div>
+        <div class="shot">
+          <div class="browser">
+            <div class="bar"><span>voltlog / tires</span></div>
+            <picture>
+              <source srcset="assets/web-tires-light.webp" media="(prefers-color-scheme: light)">
+              <img src="assets/web-tires-dark.webp" width="1600" height="1000" loading="lazy" alt="The tires page with the mounted set, its pressures and the swaps">
+            </picture>
+          </div>
+        </div>
+      </section>
+
+      <section class="feature">
+        <div class="copy">
+          <p class="eyebrow">Data checks</p>
+          <h2>Gaps found, fixes suggested</h2>
+          <p>Voltlog checks its own data. When the trips used more energy than the charges explain, it suggests the missing charge where the car stood longest. It also finds trips recorded twice and stays far from home. Nothing changes until you review a suggestion.</p>
+          <ul class="points">
+            <li>Missing charges from the energy balance between home charges</li>
+            <li>Stays away: set the start place for all their trips at once</li>
+            <li>A history of what was accepted and dismissed</li>
+          </ul>
+        </div>
+        <div class="shot">
+          <div class="browser">
+            <div class="bar"><span>voltlog / data checks</span></div>
+            <picture>
+              <source srcset="assets/web-checks-light.webp" media="(prefers-color-scheme: light)">
+              <img src="assets/web-checks-dark.webp" width="1600" height="1000" loading="lazy" alt="Data checks: a common place and a stay away from home">
+            </picture>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <section class="iphone" id="iphone">
+    <div class="wrap" style="display: grid; gap: 40px;">
+      <header>
+        <p class="eyebrow">iPhone</p>
+        <h2>Everything, also in your pocket</h2>
+        <p>A native SwiftUI app for iOS 26 with the same features as the web app: sync, trips, charging, insights, reports, tires, locations and settings. Share a PDF invoice from Mail or a trip export from the Porsche app straight to Voltlog.</p>
+      </header>
+      <div class="phones" tabindex="0" aria-label="Screenshots of the iPhone app">
+        <ul>
+          <li><div class="phone"><img src="assets/ios-2-trips.webp" width="603" height="1311" loading="lazy" alt=""></div><span class="caption">Trips of the month</span></li>
+          <li><div class="phone"><img src="assets/ios-3a-trip-detail.webp" width="603" height="1311" loading="lazy" alt=""></div><span class="caption">A trip and its costs</span></li>
+          <li><div class="phone"><img src="assets/ios-6-insights.webp" width="603" height="1311" loading="lazy" alt=""></div><span class="caption">Records</span></li>
+          <li><div class="phone"><img src="assets/ios-7a-insights-charging.webp" width="603" height="1311" loading="lazy" alt=""></div><span class="caption">Charging insights</span></li>
+          <li><div class="phone"><img src="assets/ios-8-tires.webp" width="603" height="1311" loading="lazy" alt=""></div><span class="caption">Tires and pressures</span></li>
+          <li><div class="phone"><img src="assets/ios-10a-locations.webp" width="603" height="1311" loading="lazy" alt=""></div><span class="caption">Locations</span></li>
+          <li><div class="phone"><img src="assets/ios-1g-data-checks.webp" width="603" height="1311" loading="lazy" alt=""></div><span class="caption">Data checks</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <section class="how" id="how">
+      <div>
+        <p class="eyebrow">Data sources</p>
+        <h2>Where the numbers come from</h2>
+        <dl>
+          <div><dt>Porsche Connect</dt><dd>Vehicle status, trips and the car's charging history</dd></div>
+          <div><dt>Zaptec</dt><dd>Charging sessions of the home wallbox</dd></div>
+          <div><dt>Invoices and receipts</dt><dd>PDF imports with what public charging cost</dd></div>
+          <div><dt>Trip export</dt><dd>CSV from My Porsche, for trips older than twelve months</dd></div>
+          <div><dt>Open-Meteo</dt><dd>Hourly weather at your locations</dd></div>
+        </dl>
+      </div>
+      <div>
+        <p class="eyebrow">Built with</p>
+        <h2>Small and self-hosted</h2>
+        <dl>
+          <div><dt>Backend</dt><dd>Python, FastAPI, SQLAlchemy, SQLite</dd></div>
+          <div><dt>Web app</dt><dd>React, TypeScript, Tailwind CSS, Recharts</dd></div>
+          <div><dt>iPhone app</dt><dd>Swift 6, SwiftUI, Swift Charts</dd></div>
+          <div><dt>Contract</dt><dd>One OpenAPI spec; both apps' types are generated from it</dd></div>
+          <div><dt>Hosting</dt><dd>One container on fly.io, deployed by GitHub Actions</dd></div>
+        </dl>
+      </div>
+      <div>
+        <p class="eyebrow">Privacy</p>
+        <h2>Your data stays yours</h2>
+        <dl>
+          <div><dt>Single user</dt><dd>Your own server, behind a login</dd></div>
+          <div><dt>No position tracking</dt><dd>Voltlog never asks the car for its location; places are the ones you name</dd></div>
+          <div><dt>Encrypted logins</dt><dd>Vendor passwords and tokens are stored encrypted</dd></div>
+          <div><dt>Manual sync</dt><dd>Nothing runs in the background; you decide when to sync</dd></div>
+        </dl>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Voltlog is a personal project and is not affiliated with or endorsed by Porsche AG or Zaptec. Porsche, Macan and Taycan are trademarks of Porsche AG. All screenshots show fictional demo data.</p>
+    <p>Version 1.9</p>
+  </div>
+</footer>
+
+</body>
+</html>
