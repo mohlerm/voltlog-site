@@ -183,6 +183,18 @@
   .iphone header { display: grid; gap: 16px; max-width: 62ch; }
   .iphone h2 { font-size: clamp(30px, 3.6vw, 44px); }
   .iphone header p:not(.eyebrow) { color: var(--muted); }
+  /* Apple Watch and widgets */
+  .watches { overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px; }
+  .watches ul { list-style: none; margin: 0; padding: 0; display: grid; grid-auto-flow: column; grid-auto-columns: 224px; gap: 22px; }
+  .watches li { scroll-snap-align: start; display: grid; gap: 12px; }
+  .watches .caption { font-size: 13px; color: var(--muted); }
+  .watch { padding: 8px; border-radius: 52px; background: #050506; box-shadow: inset 0 0 0 2px #2c2c30; }
+  .watch img { display: block; width: 100%; height: auto; border-radius: 44px; }
+  .widgets { border-radius: 18px; padding: 24px; display: flex; flex-wrap: wrap; gap: 22px; justify-content: center; background: linear-gradient(150deg, #21414a 0%, #16262e 48%, #0d1418 100%); }
+  :root[data-theme="light"] .widgets { background: linear-gradient(150deg, #dfe9ea 0%, #cdd8db 55%, #bcc9cd 100%); }
+  .widgets img { display: block; width: min(158px, calc(50% - 6px)); height: auto; }
+  .widgets img.wide { width: min(338px, 100%); }
+  @media (max-width: 420px) { .widgets { padding: 12px; gap: 12px; } }
   .phones { overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px; }
   .phones ul { list-style: none; margin: 0; padding: 0; display: grid; grid-auto-flow: column; grid-auto-columns: 280px; gap: 22px; }
   .phones li { scroll-snap-align: start; display: grid; gap: 12px; }
@@ -228,6 +240,7 @@
 <nav aria-label="Sections">
 <a href="#features">Features</a>
 <a href="#iphone">iPhone and iPad</a>
+<a href="#watch">Watch and widgets</a>
 <a href="#how">Good to know</a>
 </nav>
 <div class="controls">
@@ -470,6 +483,33 @@
 </div>
 </div>
 </section>
+<section class="iphone" id="watch">
+<div class="wrap" style="display: grid; gap: 40px;">
+<header>
+<p class="eyebrow">Apple Watch and widgets</p>
+<h2>The dashboard at a glance</h2>
+<p>Five pages on the Apple Watch, scrolled with the Crown: consumption over the last 30 days, the last trip, the last charge, what you saved against a petrol car, and your range against WLTP. The same five come as Home Screen widgets, with the last trip and charge also together on one wide widget. Both show what the iPhone app last loaded, so nothing runs in the background.</p>
+</header>
+<div aria-label="Screenshots of the Apple Watch app" class="watches" tabindex="0">
+<ul>
+<li><div class="watch"><img alt="" height="496" loading="lazy" src="assets/v2/watch/page-0.webp?v=2.3.0" width="416"/></div><span class="caption">Consumption</span></li>
+<li><div class="watch"><img alt="" height="496" loading="lazy" src="assets/v2/watch/page-1.webp?v=2.3.0" width="416"/></div><span class="caption">Last trip</span></li>
+<li><div class="watch"><img alt="" height="496" loading="lazy" src="assets/v2/watch/page-2.webp?v=2.3.0" width="416"/></div><span class="caption">Last charge</span></li>
+<li><div class="watch"><img alt="" height="496" loading="lazy" src="assets/v2/watch/page-3.webp?v=2.3.0" width="416"/></div><span class="caption">Saved vs. petrol</span></li>
+<li><div class="watch"><img alt="" height="496" loading="lazy" src="assets/v2/watch/page-4.webp?v=2.3.0" width="416"/></div><span class="caption">Range</span></li>
+</ul>
+</div>
+<div aria-label="Home Screen widgets" class="widgets">
+<img alt="The last trip and the last charge on a wide widget" class="wide" data-shot="widget-both-m" height="316" loading="lazy" src="assets/v2/dark/widget-both-m.webp?v=2.2.0" width="676"/>
+<img alt="Consumption of the last 30 days on a wide widget" class="wide" data-shot="widget-consumption-m" height="316" loading="lazy" src="assets/v2/dark/widget-consumption-m.webp?v=2.2.0" width="676"/>
+<img alt="A small consumption widget" data-shot="widget-consumption-s" height="316" loading="lazy" src="assets/v2/dark/widget-consumption-s.webp?v=2.2.0" width="316"/>
+<img alt="A small last trip widget" data-shot="widget-trip-s" height="316" loading="lazy" src="assets/v2/dark/widget-trip-s.webp?v=2.2.0" width="316"/>
+<img alt="A small last charge widget" data-shot="widget-charge-s" height="316" loading="lazy" src="assets/v2/dark/widget-charge-s.webp?v=2.2.0" width="316"/>
+<img alt="A small savings widget" data-shot="widget-saved-s" height="316" loading="lazy" src="assets/v2/dark/widget-saved-s.webp?v=2.2.0" width="316"/>
+<img alt="A small range widget" data-shot="widget-range-s" height="316" loading="lazy" src="assets/v2/dark/widget-range-s.webp?v=2.2.0" width="316"/>
+</div>
+</div>
+</section>
 <div class="wrap">
 <section class="how" id="how">
 <div>
@@ -511,7 +551,7 @@
 <div class="wrap">
 <p>Voltlog is a personal project and is not affiliated with or endorsed by Porsche AG or Zaptec. Porsche, My Porsche, Macan, Taycan and Cayenne are trademarks of Porsche AG. All screenshots show fictional demo data.</p>
 <p>Inspired by <a href="https://github.com/jpleite/porsche_ev_insights">porsche_ev_insights</a>. Reads the car through <a href="https://github.com/cjne/pyporscheconnectapi">pyporscheconnectapi</a>. Built with Python, React and SwiftUI, in one self-hosted container.</p>
-<p>Version 2.2</p>
+<p>Version 2.3</p>
 </div>
 </footer>
 <dialog aria-label="Screenshot" class="lightbox"><img alt=""/></dialog>
