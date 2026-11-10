@@ -59,6 +59,7 @@
   :root[data-accent="signal-red"] { --accent-light: #c42129; --accent-dark: #f2646a; }
   :root[data-accent="berry"] { --accent-light: #a83f6c; --accent-dark: #e58bae; }
   :root[data-accent="lavender"] { --accent-light: #6b5ab0; --accent-dark: #afa2ec; }
+  :root[data-accent="mono"] { --accent-light: #1d1d1f; --accent-dark: #f2f2f4; }
 
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -265,10 +266,10 @@
 <div class="stage">
 <div class="browser">
 <div class="bar"><span>voltlog</span></div>
-<img alt="The Voltlog dashboard: battery level, range, mileage, the last trip and the last charge" data-shot="web-dashboard" height="1382" src="assets/v2/dark/web-dashboard.webp?v=2.2.0" width="1800"/>
+<img alt="The Voltlog dashboard: battery level, range, mileage, the last trip and the last charge" data-shot="web-dashboard" height="1382" src="assets/v2/dark/web-dashboard.webp?v=2.4.0" width="1800"/>
 </div>
 <div class="phone">
-<img alt="The dashboard in the iPhone app" data-shot="ios-1-dashboard" height="1311" src="assets/v2/dark/ios-1-dashboard.webp?v=2.2.0" width="603"/>
+<img alt="The dashboard in the iPhone app" data-shot="ios-1-dashboard" height="1311" src="assets/v2/dark/ios-1-dashboard.webp?v=2.4.0" width="603"/>
 </div>
 </div>
 <section class="adds" id="adds">
@@ -298,7 +299,7 @@
 <div class="shot">
 <div class="browser">
 <div class="bar"><span>voltlog / insights</span></div>
-<img alt="Insights: consumption by speed, trip length and outside temperature" data-shot="web-insights-temperature" height="1382" loading="lazy" src="assets/v2/dark/web-insights-temperature.webp?v=2.2.0" width="1800"/>
+<img alt="Insights: consumption by speed, trip length and outside temperature" data-shot="web-insights-temperature" height="1382" loading="lazy" src="assets/v2/dark/web-insights-temperature.webp?v=2.4.0" width="1800"/>
 </div>
 </div>
 </section>
@@ -322,7 +323,7 @@
 <div class="shot">
 <div class="browser">
 <div class="bar"><span>voltlog / charging</span></div>
-<img alt="The charging page with the month's summary and the list of charges" data-shot="web-charging" height="1382" loading="lazy" src="assets/v2/dark/web-charging.webp?v=2.2.0" width="1800"/>
+<img alt="The charging page with the month's summary and the list of charges" data-shot="web-charging" height="1382" loading="lazy" src="assets/v2/dark/web-charging.webp?v=2.4.0" width="1800"/>
 </div>
 </div>
 </section>
@@ -331,11 +332,12 @@
 <div class="copy-text">
 <p class="eyebrow">Dashboard</p>
 <h2>The last 30 days at a glance</h2>
-<p>The dashboard opens with your last trip and last charge. Below them it shows your driving in columns, and on the same days the battery level: trips pull it down, charges lift it up, each with what it cost. Small icons switch the columns between consumption, distance, driving time and speed.</p>
+<p>The dashboard opens with your car, your last trip and last charge. Below them it shows your driving in columns, and on the same days the battery level: trips pull it down, charges lift it up, each with what it cost. Small icons switch the columns between consumption, distance, driving time and speed.</p>
 <ul class="points">
 <li>The last 30 days, this month or all time</li>
 <li>Graphs and dials that build up, at the pace you set: on, instant or off</li>
-<li>Electricity against petrol on one scale, with what you saved on energy</li>
+<li>Electricity and petrol added up over the period, with what you saved between them</li>
+<li>The charging mix: home, public DC and AC, each with its price per kWh</li>
 <li>The range at your consumption and at today's temperature next to WLTP</li>
 </ul>
 </div>
@@ -344,7 +346,7 @@
 <div class="shot">
 <div class="browser">
 <div class="bar"><span>voltlog</span></div>
-<img alt="The driving of the last 30 days in columns, and below it the battery level with the price of each charge" data-shot="web-battery" height="1382" loading="lazy" src="assets/v2/dark/web-battery.webp?v=2.2.0" width="1800"/>
+<img alt="The driving of the last 30 days in columns, and below it the battery level with the price of each charge" data-shot="web-battery" height="1382" loading="lazy" src="assets/v2/dark/web-battery.webp?v=2.4.0" width="1800"/>
 </div>
 </div>
 </section>
@@ -356,7 +358,8 @@
 <p>Every trip from the car, priced at what the energy in the battery cost when it was driven: the charges feed a running average, so a trip after a cheap home charge costs less than one after a fast charger on the motorway.</p>
 <ul class="points">
 <li>Consumption and speed as two dials, with the month's average</li>
-<li>The share of a full battery it took, and what a petrol car would have cost</li>
+<li>The share of a full battery it took, and the part of a petrol car's cost you saved</li>
+<li>Its price per kWh against the month's cheapest, average and dearest</li>
 <li>The weather where it started, from home or a saved location</li>
 <li>Edit any value, add a note; edits survive the next sync</li>
 </ul>
@@ -366,15 +369,15 @@
 <div class="shot">
 <div class="browser">
 <div class="bar"><span>voltlog / trips</span></div>
-<img alt="A trip's overview with costs, start place and weather" data-shot="web-trip" height="1382" loading="lazy" src="assets/v2/dark/web-trip.webp?v=2.2.0" width="1800"/>
+<img alt="A trip's overview with costs, start place and weather" data-shot="web-trip" height="1382" loading="lazy" src="assets/v2/dark/web-trip.webp?v=2.4.0" width="1800"/>
 </div>
 </div>
 </section>
 <section class="feature">
 <div class="copy">
 <p class="eyebrow">Reports</p>
-<h2>A month or a year at a glance</h2>
-<p>The monthly and the yearly report compare a period with the one before, from consumption to the savings against a petrol car, and share as an image that fits a phone screen.</p>
+<h2>A month, a year or all time at a glance</h2>
+<p>The monthly and the yearly report compare a period with the one before, from consumption to the savings against a petrol car, and share as an image that fits a phone screen. The all-time report covers everything since the first trip, with rates per day or month and your best month.</p>
 <ul class="points">
 <li>Consumption per month, driving, costs and charging</li>
 <li>Driving time, the share charged at home and the charging loss</li>
@@ -384,10 +387,10 @@
 <div class="shot pair">
 <div class="browser">
 <div class="bar"><span>voltlog / monthly report</span></div>
-<img alt="The monthly report dialog" data-shot="web-monthly" height="1382" loading="lazy" src="assets/v2/dark/web-monthly.webp?v=2.2.0" width="1800"/>
+<img alt="The monthly report dialog" data-shot="web-monthly" height="1382" loading="lazy" src="assets/v2/dark/web-monthly.webp?v=2.4.0" width="1800"/>
 </div>
 <div class="phone">
-<img alt="The yearly report on the iPhone" data-shot="ios-1j-yearly-report" height="1311" loading="lazy" src="assets/v2/dark/ios-1j-yearly-report.webp?v=2.2.0" width="603"/>
+<img alt="The yearly report on the iPhone" data-shot="ios-1j-yearly-report" height="1311" loading="lazy" src="assets/v2/dark/ios-1j-yearly-report.webp?v=2.4.0" width="603"/>
 </div>
 </div>
 </section>
@@ -408,7 +411,7 @@
 <div class="shot">
 <div class="browser">
 <div class="bar"><span>voltlog / tires</span></div>
-<img alt="The tires page: the four pressures around the car from above, and the swaps as a strip" data-shot="web-tires" height="1382" loading="lazy" src="assets/v2/dark/web-tires.webp?v=2.2.0" width="1800"/>
+<img alt="The tires page: the four pressures around the car from above, and the swaps as a strip" data-shot="web-tires" height="1382" loading="lazy" src="assets/v2/dark/web-tires.webp?v=2.4.0" width="1800"/>
 </div>
 </div>
 </section>
@@ -426,7 +429,7 @@
 <div class="shot">
 <div class="browser">
 <div class="bar"><span>voltlog / data checks</span></div>
-<img alt="Data checks: a common place and a stay away from home" data-shot="web-checks" height="1382" loading="lazy" src="assets/v2/dark/web-checks.webp?v=2.2.0" width="1800"/>
+<img alt="Data checks: a common place and a stay away from home" data-shot="web-checks" height="1382" loading="lazy" src="assets/v2/dark/web-checks.webp?v=2.4.0" width="1800"/>
 </div>
 </div>
 </section>
@@ -437,7 +440,7 @@
 <div class="copy">
 <p class="eyebrow">Accent color</p>
 <h2>In your color</h2>
-<p>Six accent colors inspired by car paints, chosen per device in Settings: they color the battery ring, the links and the charts, each with a chart pair checked for contrast and colour blindness. On the iPhone the app icon follows.</p>
+<p>Six accent colors inspired by car paints, or plain black and white, chosen per device in Settings: they color the battery ring, the links and the charts, each with a chart pair checked for contrast and colour blindness. On the iPhone the app icon follows.</p>
 <div aria-label="Accent color" class="swatches" role="group">
 <button aria-label="Teal" class="swatch" data-accent="teal" style="--swatch: #00a7af" title="Teal" type="button"></button>
 <button aria-label="Oak green" class="swatch" data-accent="oak-green" style="--swatch: #7f9c69" title="Oak green" type="button"></button>
@@ -445,12 +448,13 @@
 <button aria-label="Signal red" class="swatch" data-accent="signal-red" style="--swatch: #dc3f46" title="Signal red" type="button"></button>
 <button aria-label="Berry" class="swatch" data-accent="berry" style="--swatch: #c6658d" title="Berry" type="button"></button>
 <button aria-label="Lavender" class="swatch" data-accent="lavender" style="--swatch: #8d7ece" title="Lavender" type="button"></button>
+<button aria-label="Black &amp; white" class="swatch" data-accent="mono" style="--swatch: linear-gradient(135deg, #f2f2f4 50%, #1d1d1f 50%)" title="Black &amp; white" type="button"></button>
 </div>
 <p aria-live="polite" class="accent-name">Teal</p>
 </div>
 <div class="browser">
 <div class="bar"><span>voltlog</span></div>
-<img alt="The dashboard in the chosen accent color" height="1382" id="accent-shot" loading="lazy" src="assets/v2/accents/dark-teal.webp?v=2.2.0" width="1800"/>
+<img alt="The dashboard in the chosen accent color" height="1382" id="accent-shot" loading="lazy" src="assets/v2/accents/dark-teal.webp?v=2.4.0" width="1800"/>
 </div>
 </section>
 </div>
@@ -465,21 +469,21 @@
 </header>
 <div aria-label="Screenshots of the iPhone app" class="phones" tabindex="0">
 <ul>
-<li><div class="phone"><img alt="" data-shot="ios-1k-dashboard-battery" height="1311" loading="lazy" src="assets/v2/dark/ios-1k-dashboard-battery.webp?v=2.2.0" width="603"/></div><span class="caption">Driving and charging</span></li>
-<li><div class="phone"><img alt="" data-shot="ios-2-trips" height="1311" loading="lazy" src="assets/v2/dark/ios-2-trips.webp?v=2.2.0" width="603"/></div><span class="caption">Trips of the month</span></li>
-<li><div class="phone"><img alt="" data-shot="ios-3a-trip-detail" height="1311" loading="lazy" src="assets/v2/dark/ios-3a-trip-detail.webp?v=2.2.0" width="603"/></div><span class="caption">A trip and its costs</span></li>
-<li><div class="phone"><img alt="" data-shot="ios-5e-charge-reported" height="1311" loading="lazy" src="assets/v2/dark/ios-5e-charge-reported.webp?v=2.2.0" width="603"/></div><span class="caption">A charge and what it added</span></li>
-<li><div class="phone"><img alt="" data-shot="ios-3e-trip-share" height="1311" loading="lazy" src="assets/v2/dark/ios-3e-trip-share.webp?v=2.2.0" width="603"/></div><span class="caption">A trip to share</span></li>
-<li><div class="phone"><img alt="" data-shot="ios-6-insights" height="1311" loading="lazy" src="assets/v2/dark/ios-6-insights.webp?v=2.2.0" width="603"/></div><span class="caption">Records</span></li>
-<li><div class="phone"><img alt="" data-shot="ios-1a-monthly-report" height="1311" loading="lazy" src="assets/v2/dark/ios-1a-monthly-report.webp?v=2.2.0" width="603"/></div><span class="caption">Monthly report</span></li>
-<li><div class="phone"><img alt="" data-shot="ios-8-tires" height="1311" loading="lazy" src="assets/v2/dark/ios-8-tires.webp?v=2.2.0" width="603"/></div><span class="caption">Tires and pressures</span></li>
-<li><div class="phone"><img alt="" data-shot="ios-8a-tire-swap" height="1311" loading="lazy" src="assets/v2/dark/ios-8a-tire-swap.webp?v=2.2.0" width="603"/></div><span class="caption">A set on the car</span></li>
-<li><div class="phone"><img alt="" data-shot="ios-10a-locations" height="1311" loading="lazy" src="assets/v2/dark/ios-10a-locations.webp?v=2.2.0" width="603"/></div><span class="caption">Locations</span></li>
-<li><div class="phone"><img alt="" data-shot="ios-1g-data-checks" height="1311" loading="lazy" src="assets/v2/dark/ios-1g-data-checks.webp?v=2.2.0" width="603"/></div><span class="caption">Data checks</span></li>
+<li><div class="phone"><img alt="" data-shot="ios-1k-dashboard-battery" height="1311" loading="lazy" src="assets/v2/dark/ios-1k-dashboard-battery.webp?v=2.4.0" width="603"/></div><span class="caption">Driving and charging</span></li>
+<li><div class="phone"><img alt="" data-shot="ios-2-trips" height="1311" loading="lazy" src="assets/v2/dark/ios-2-trips.webp?v=2.4.0" width="603"/></div><span class="caption">Trips of the month</span></li>
+<li><div class="phone"><img alt="" data-shot="ios-3a-trip-detail" height="1311" loading="lazy" src="assets/v2/dark/ios-3a-trip-detail.webp?v=2.4.0" width="603"/></div><span class="caption">A trip and its costs</span></li>
+<li><div class="phone"><img alt="" data-shot="ios-5e-charge-reported" height="1311" loading="lazy" src="assets/v2/dark/ios-5e-charge-reported.webp?v=2.4.0" width="603"/></div><span class="caption">A charge and what it added</span></li>
+<li><div class="phone"><img alt="" data-shot="ios-3e-trip-share" height="1311" loading="lazy" src="assets/v2/dark/ios-3e-trip-share.webp?v=2.4.0" width="603"/></div><span class="caption">A trip to share</span></li>
+<li><div class="phone"><img alt="" data-shot="ios-6-insights" height="1311" loading="lazy" src="assets/v2/dark/ios-6-insights.webp?v=2.4.0" width="603"/></div><span class="caption">Records</span></li>
+<li><div class="phone"><img alt="" data-shot="ios-1a-monthly-report" height="1311" loading="lazy" src="assets/v2/dark/ios-1a-monthly-report.webp?v=2.4.0" width="603"/></div><span class="caption">Monthly report</span></li>
+<li><div class="phone"><img alt="" data-shot="ios-8-tires" height="1311" loading="lazy" src="assets/v2/dark/ios-8-tires.webp?v=2.4.0" width="603"/></div><span class="caption">Tires and pressures</span></li>
+<li><div class="phone"><img alt="" data-shot="ios-8a-tire-swap" height="1311" loading="lazy" src="assets/v2/dark/ios-8a-tire-swap.webp?v=2.4.0" width="603"/></div><span class="caption">A set on the car</span></li>
+<li><div class="phone"><img alt="" data-shot="ios-10a-locations" height="1311" loading="lazy" src="assets/v2/dark/ios-10a-locations.webp?v=2.4.0" width="603"/></div><span class="caption">Locations</span></li>
+<li><div class="phone"><img alt="" data-shot="ios-1g-data-checks" height="1311" loading="lazy" src="assets/v2/dark/ios-1g-data-checks.webp?v=2.4.0" width="603"/></div><span class="caption">Data checks</span></li>
 </ul>
 </div>
 <div class="tablet">
-<img alt="The dashboard on the iPad, with the navigation at the top" data-shot="ipad-dashboard" height="1210" loading="lazy" src="assets/v2/dark/ipad-dashboard.webp?v=2.2.0" width="834"/>
+<img alt="The dashboard on the iPad, with the navigation at the top" data-shot="ipad-dashboard" height="1210" loading="lazy" src="assets/v2/dark/ipad-dashboard.webp?v=2.4.0" width="834"/>
 </div>
 </div>
 </section>
@@ -488,25 +492,28 @@
 <header>
 <p class="eyebrow">Apple Watch and widgets</p>
 <h2>The dashboard at a glance</h2>
-<p>Five pages on the Apple Watch, scrolled with the Crown: consumption over the last 30 days, the last trip, the last charge, what you saved against a petrol car, and your range against WLTP. The same five come as Home Screen widgets, with the last trip and charge also together on one wide widget. Both show what the iPhone app last loaded, so nothing runs in the background.</p>
+<p>Seven pages on the Apple Watch, scrolled with the Crown, in the dashboard's order: your car with its battery, range and mileage, the last trip, the last charge, consumption over the last 30 days, what you saved against a petrol car, where your charging came from, and your range against WLTP. All but the car come as Home Screen widgets, with the last trip and charge also together on one wide widget. Both show what the iPhone app last loaded, so nothing runs in the background.</p>
 </header>
 <div aria-label="Screenshots of the Apple Watch app" class="watches" tabindex="0">
 <ul>
-<li><div class="watch"><img alt="" height="496" loading="lazy" src="assets/v2/watch/page-0.webp?v=2.3.0" width="416"/></div><span class="caption">Consumption</span></li>
-<li><div class="watch"><img alt="" height="496" loading="lazy" src="assets/v2/watch/page-1.webp?v=2.3.0" width="416"/></div><span class="caption">Last trip</span></li>
-<li><div class="watch"><img alt="" height="496" loading="lazy" src="assets/v2/watch/page-2.webp?v=2.3.0" width="416"/></div><span class="caption">Last charge</span></li>
-<li><div class="watch"><img alt="" height="496" loading="lazy" src="assets/v2/watch/page-3.webp?v=2.3.0" width="416"/></div><span class="caption">Saved vs. petrol</span></li>
-<li><div class="watch"><img alt="" height="496" loading="lazy" src="assets/v2/watch/page-4.webp?v=2.3.0" width="416"/></div><span class="caption">Range</span></li>
+<li><div class="watch"><img alt="" height="496" loading="lazy" src="assets/v2/watch/page-0.webp?v=2.4.0" width="416"/></div><span class="caption">Car</span></li>
+<li><div class="watch"><img alt="" height="496" loading="lazy" src="assets/v2/watch/page-1.webp?v=2.4.0" width="416"/></div><span class="caption">Last trip</span></li>
+<li><div class="watch"><img alt="" height="496" loading="lazy" src="assets/v2/watch/page-2.webp?v=2.4.0" width="416"/></div><span class="caption">Last charge</span></li>
+<li><div class="watch"><img alt="" height="496" loading="lazy" src="assets/v2/watch/page-3.webp?v=2.4.0" width="416"/></div><span class="caption">Consumption</span></li>
+<li><div class="watch"><img alt="" height="496" loading="lazy" src="assets/v2/watch/page-4.webp?v=2.4.0" width="416"/></div><span class="caption">Saved vs. petrol</span></li>
+<li><div class="watch"><img alt="" height="496" loading="lazy" src="assets/v2/watch/page-5.webp?v=2.4.0" width="416"/></div><span class="caption">Charging mix</span></li>
+<li><div class="watch"><img alt="" height="496" loading="lazy" src="assets/v2/watch/page-6.webp?v=2.4.0" width="416"/></div><span class="caption">Range</span></li>
 </ul>
 </div>
 <div aria-label="Home Screen widgets" class="widgets">
-<img alt="The last trip and the last charge on a wide widget" class="wide" data-shot="widget-both-m" height="316" loading="lazy" src="assets/v2/dark/widget-both-m.webp?v=2.2.0" width="676"/>
-<img alt="Consumption of the last 30 days on a wide widget" class="wide" data-shot="widget-consumption-m" height="316" loading="lazy" src="assets/v2/dark/widget-consumption-m.webp?v=2.2.0" width="676"/>
-<img alt="A small consumption widget" data-shot="widget-consumption-s" height="316" loading="lazy" src="assets/v2/dark/widget-consumption-s.webp?v=2.2.0" width="316"/>
-<img alt="A small last trip widget" data-shot="widget-trip-s" height="316" loading="lazy" src="assets/v2/dark/widget-trip-s.webp?v=2.2.0" width="316"/>
-<img alt="A small last charge widget" data-shot="widget-charge-s" height="316" loading="lazy" src="assets/v2/dark/widget-charge-s.webp?v=2.2.0" width="316"/>
-<img alt="A small savings widget" data-shot="widget-saved-s" height="316" loading="lazy" src="assets/v2/dark/widget-saved-s.webp?v=2.2.0" width="316"/>
-<img alt="A small range widget" data-shot="widget-range-s" height="316" loading="lazy" src="assets/v2/dark/widget-range-s.webp?v=2.2.0" width="316"/>
+<img alt="The last trip and the last charge on a wide widget" class="wide" data-shot="widget-both-m" height="316" loading="lazy" src="assets/v2/dark/widget-both-m.webp?v=2.4.0" width="676"/>
+<img alt="Consumption of the last 30 days on a wide widget" class="wide" data-shot="widget-consumption-m" height="316" loading="lazy" src="assets/v2/dark/widget-consumption-m.webp?v=2.4.0" width="676"/>
+<img alt="A small consumption widget" data-shot="widget-consumption-s" height="316" loading="lazy" src="assets/v2/dark/widget-consumption-s.webp?v=2.4.0" width="316"/>
+<img alt="A small last trip widget" data-shot="widget-trip-s" height="316" loading="lazy" src="assets/v2/dark/widget-trip-s.webp?v=2.4.0" width="316"/>
+<img alt="A small last charge widget" data-shot="widget-charge-s" height="316" loading="lazy" src="assets/v2/dark/widget-charge-s.webp?v=2.4.0" width="316"/>
+<img alt="A small savings widget" data-shot="widget-saved-s" height="316" loading="lazy" src="assets/v2/dark/widget-saved-s.webp?v=2.4.0" width="316"/>
+<img alt="A small charging mix widget" data-shot="widget-mix-s" height="316" loading="lazy" src="assets/v2/dark/widget-mix-s.webp?v=2.4.0" width="316"/>
+<img alt="A small range widget" data-shot="widget-range-s" height="316" loading="lazy" src="assets/v2/dark/widget-range-s.webp?v=2.4.0" width="316"/>
 </div>
 </div>
 </section>
@@ -551,7 +558,7 @@
 <div class="wrap">
 <p>Voltlog is a personal project and is not affiliated with or endorsed by Porsche AG or Zaptec. Porsche, My Porsche, Macan, Taycan and Cayenne are trademarks of Porsche AG. All screenshots show fictional demo data.</p>
 <p>Inspired by <a href="https://github.com/jpleite/porsche_ev_insights">porsche_ev_insights</a>. Reads the car through <a href="https://github.com/cjne/pyporscheconnectapi">pyporscheconnectapi</a>. Built with Python, React and SwiftUI, in one self-hosted container.</p>
-<p>Version 2.3</p>
+<p>Version 2.4</p>
 </div>
 </footer>
 <dialog aria-label="Screenshot" class="lightbox"><img alt=""/></dialog>
@@ -572,8 +579,8 @@
   (function () {
     var root = document.documentElement;
     // Keeps browsers from mixing in cached old screenshots: changes with every new set.
-    var SET = "2.2.0";
-    var names = { "teal": "Teal", "oak-green": "Oak green", "gentian-blue": "Gentian blue", "signal-red": "Signal red", "berry": "Berry", "lavender": "Lavender" };
+    var SET = "2.4.0";
+    var names = { "teal": "Teal", "oak-green": "Oak green", "gentian-blue": "Gentian blue", "signal-red": "Signal red", "berry": "Berry", "lavender": "Lavender", "mono": "Black & white" };
     function apply() {
       var theme = root.dataset.theme, accent = root.dataset.accent;
       var query = ".webp?v=" + SET;
